@@ -1,0 +1,8 @@
+# Starter dependencies. Pin tested versions before milestone submission.
+pandas
+openpyxl
+psycopg[binary]
+python-dotenv
+pytest
+streamlit
+plotly
