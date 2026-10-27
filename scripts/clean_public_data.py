@@ -100,7 +100,8 @@ def clean_occupancy(source: Path, output_dir: Path) -> None:
 
         for col, term in zip(OCCUPANCY_COLUMNS, term_info):
             raw = row.iloc[col]
-            if pd.isna(raw) or not isinstance(raw, (int, float)) or int(raw) != raw or raw < 0:
+            numeric = pd.to_numeric(raw, errors="coerce")
+            if pd.isna(numeric) or numeric < 0 or int(numeric) != numeric:
                 raise ValueError(f"{property_name}, {term['term_name']}: invalid occupied-space count {raw!r}")
             observations.append(
                 {
