@@ -37,10 +37,19 @@ The ETL strips incidental trailing spaces from names; marks one of Traditional, 
 
 A property can have more occupied spaces in a historical term than a different document's present-day capacity figure. We must reconcile source versions and dates before treating those figures as comparable.
 
-## Synthetic operational data (not yet implemented)
+## Implemented synthetic operational data
 
-Future room inventory, fictional residents, dated bed assignments, RA-to-floor staffing, and room-change requests will be **synthetic**, reproducible, and documented separately. These records must never be represented as N.C. A&T's actual residents or staffing.
+The 2026-27 operating layer **is implemented** as reproducibly generated fictional records using §scripts/generate_synthetic.py§ (seed 532, baseline 2026-10-28). It includes four halls, 13 floors, 78 fictional rooms, 144 beds, 111 residents, 16 pending room changes, dated assignments, and RA-floor staffing. §scripts/load_database.py§ loads these into the normalized PostgreSQL schema. They must never be represented as N.C. A&T's actual residents or staffing.
 
 ## Privacy, security, and repository use
 
 The `data/raw/` and `data/processed/` folders are Git-ignored (apart from their `.gitkeep` files). The source workbook should be stored locally rather than automatically committed. Never commit personally identifiable student information, `.env`, connection strings with real passwords, or private records.
+
+## Supplemental public references
+
+- [N.C. A&T official residence hall directory](https://www.ncat.edu/campus-life/student-affairs/departments/housing-and-residence-life/housing/residence-halls/index.php): selected building names and published characteristics.
+- [N.C. A&T Fall 2026/Spring 2027 housing costs](https://www.ncat.edu/campus-life/student-affairs/departments/housing-and-residence-life/resident-resources/cost-for-living-on-campus.php): room-type semester rates, kept distinct from historical occupancy.
+
+**Known reconciliation issue:** The source `Demographics` sheet classifies Blair Hall as Traditional, while current Aggie Village descriptions characterize it as suite-style. The model preserves historical and current classifications separately. No 2026 room capacities or actual current occupancy are inferred from 2022–24 property totals.
+
+**Workbook availability:** The course-provided `Project Data.xlsx` is not checked into Git and no stable public direct download of that exact workbook has been verified. For full grading reproducibility, the team needs to provide instructors an accessible, approved copy or exact source URL. [Local data instructions](../data/README.md) explain the expected path.

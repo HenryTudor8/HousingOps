@@ -1,6 +1,6 @@
 # HousingOps Synthetic Operational Data, Version 1
 
-**Status:** Provisional canonical data contract. Developed for the October/November 2026 DSCI-D 532 Milestone 2 demonstration, before final PostgreSQL table/column mapping. No records describe actual 2026 residents, room assignments, RAs, or move requests.
+**Status:** Implemented Milestone 2 synthetic data contract, mapped to the 16-table PostgreSQL schema by `scripts/load_database.py`. No records describe actual 2026 residents, room assignments, RAs, or move requests.
 
 ## Relationship to the approved Milestone 1 proposal and ERD
 
@@ -15,7 +15,7 @@ This generator follows the three blocks in Figure 1 of the team's Milestone 1 pr
 
 `Building.property_code` connects the simulated building to the separately imported historical `HousingProperty.property_code`. That does **not** mean historical counts describe current room availability. The original model's `RequestPreference` is implemented as rows with one building ID and one explicit rank, rather than a comma-separated preference string. The selected `RoomType` and `HousingRate` reference tables are separate from rooms, consistent with the tentative normalization.
 
-**Provisional names are not SQL table definitions.** If the implemented ERD uses integer PKs, different naming, new lookups, etc., adjust the future PostgreSQL loader/adapter. Keep generation and validation behavior intact.
+**Implemented mapping:** The generated table/column names match `sql/01_schema.sql` and are loaded directly through `scripts/load_database.py`. The current implementation retains the generated text identifiers; see [the ERD](schema_erd.md).
 
 ## Source information vs demo assumptions
 
@@ -78,9 +78,9 @@ The `validate_dataset()` function checks nonempty unique keys, foreign-key refer
 
 Other tests reject a resident assigned overlapping beds, an unavailable room type in a hall, and invalid/missing request preferences.
 
-**Crucial limitation:** These are *pre-load application checks*. For Milestone 2, Vishwambhara and Sanchit must also demonstrate that the actual PostgreSQL database enforces declared primary keys/foreign keys/uniqueness and appropriate overlap protection. Passing Python tests alone does not prove database enforcement or CRUD.
+**Crucial distinction:** These are *pre-load application checks*, not proof of SQL constraints. Separately, Milestone 2's `sql/06_integrity_tests.sql` demonstrates PostgreSQL rejecting a nonexistent referenced bed (SQLSTATE 23503) and an overlapping confirmed assignment (SQLSTATE 23P01). `sql/05_crud_demo.sql` demonstrates database CRUD.
 
-## PostgreSQL integration contract and next steps
+## Implemented PostgreSQL integration
 
 Agreements to establish before writing the final loader:
 
