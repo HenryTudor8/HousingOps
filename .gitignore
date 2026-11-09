@@ -224,5 +224,6 @@ __marimo__/
 !.env.example
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/Project Data.xlsx
 data/processed/*
 !data/processed/.gitkeep
