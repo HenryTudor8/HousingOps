@@ -116,6 +116,4 @@ ChatGPT (OpenAI) assisted with schema/code drafting, Python generator and tests,
 
 Milestone 2 implementation was led by **Sanchit Kumar**, following the team's ERD discussion with **Viswambhara Chinmaye Palaparthi**. Both members submit their own individual contribution statement per course instructions.
 
-## Submission branch
 
-`SanBranch` contains the Milestone 2 implementation. The repository default branch, `main`, should be updated through review/merge before the instructor accesses the top-level repository URL. Until then, link directly to [SanBranch](https://github.com/HenryTudor8/HousingOps/tree/SanBranch).
