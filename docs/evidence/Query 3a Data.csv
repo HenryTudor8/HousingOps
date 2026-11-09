@@ -1,0 +1,8 @@
+"request_id","demo_scenario","desired_move_date","preference_rank","building_name","floor_number","room_number","bed_id","room_type_name","semester_rate_usd"
+"REQ_0001","vacant_now","2026-10-28",1,"Pride Hall",1,"101","BED_0115","Double",3221.50
+"REQ_0001","vacant_now","2026-10-28",1,"Pride Hall",1,"103","BED_0119","Double",3221.50
+"REQ_0001","vacant_now","2026-10-28",1,"Pride Hall",1,"103","BED_0120","Double",3221.50
+"REQ_0001","vacant_now","2026-10-28",1,"Pride Hall",1,"106","BED_0123","Double",3221.50
+"REQ_0001","vacant_now","2026-10-28",1,"Pride Hall",1,"106","BED_0124","Double",3221.50
+"REQ_0001","vacant_now","2026-10-28",1,"Pride Hall",2,"201","BED_0125","Double",3221.50
+"REQ_0001","vacant_now","2026-10-28",1,"Pride Hall",3,"306","BED_0144","Double",3221.50

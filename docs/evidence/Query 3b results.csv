@@ -1,0 +1,5 @@
+request_id,demo_scenario,desired_move_date,eligible_beds_for_entire_stay
+REQ_0001,vacant_now,10/28/2026,7
+REQ_0002,future_opening,11/17/2026,10
+REQ_0003,budget_blocked,10/28/2026,0
+REQ_0004,floor_unavailable,10/28/2026,0

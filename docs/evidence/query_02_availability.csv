@@ -1,0 +1,17 @@
+label,check_date,building_name,available_beds
+Baseline,10/28/2026,Blair Hall,9
+Baseline,10/28/2026,Cooper Hall,13
+Baseline,10/28/2026,Holland Hall,4
+Baseline,10/28/2026,Pride Hall,8
+7 days,11/4/2026,Blair Hall,10
+7 days,11/4/2026,Cooper Hall,14
+7 days,11/4/2026,Holland Hall,7
+7 days,11/4/2026,Pride Hall,8
+14 days,11/11/2026,Blair Hall,10
+14 days,11/11/2026,Cooper Hall,17
+14 days,11/11/2026,Holland Hall,8
+14 days,11/11/2026,Pride Hall,10
+30 days,11/27/2026,Blair Hall,10
+30 days,11/27/2026,Cooper Hall,18
+30 days,11/27/2026,Holland Hall,9
+30 days,11/27/2026,Pride Hall,12
