@@ -82,16 +82,12 @@ Other tests reject a resident assigned overlapping beds, an unavailable room typ
 
 ## Implemented PostgreSQL integration
 
-Agreements to establish before writing the final loader:
+The synthetic CSV columns are now mapped to the completed 16-table PostgreSQL model, using stable text primary keys. The actual implementation is in [`sql/01_schema.sql`](../sql/01_schema.sql), with normalized `room_types`, `housing_rates`, and source metadata.
 
-- Naming/PK conventions (`BLD_COOPER` IDs vs generated integer keys).
-- Normalize `room_types`, `housing_rates`, and source metadata vs inline attributes.
-- Decide which referential constraints are SQL `FOREIGN KEY` vs application validation, and which date-overlap rules use PostgreSQL exclusion constraints/transactions.
-- Define effective-dated room occupancy and RA coverage, the intended duration of a new assignment, and the approved-move transaction design.
-- Determine whether the final ERD includes an explicit rate-period dimension.
+Run the public data cleaner and the seeded synthetic generator, then execute the schema script in a **new empty PostgreSQL database** and run [`scripts/load_database.py`](../scripts/load_database.py). The loader checks the expected CSV columns and data relationships, rejects nonempty destination tables, and imports all 16 datasets in foreign-key-safe order within a single transaction.
 
-A future `scripts/load_database.py` should handle mapping these canonical CSVs into the agreed implemented SQL schema. It must load public tables separately, then synthetic operational tables in FK-safe order. Both teammates should run and explain the SQL load and queries.
+PostgreSQL exclusion constraints enforce nonoverlapping confirmed bed and resident assignments. The full-stay matching SQL is [`sql/03_room_change_matching.sql`](../sql/03_room_change_matching.sql). It recommends candidates but does **not** reserve beds or approve a move. An atomic room-transfer workflow and the Streamlit interface remain for subsequent milestones.
 
 ## AI-use acknowledgement (review before using in submissions)
 
-ChatGPT (OpenAI) assisted with the draft generator, documentation, and test scaffolding. The team must review the program, verify public rate inputs and source links, explain its design, validate the generated counts, and revise the adapter to match the implemented PostgreSQL schema. The generated scripts are not a substitute for authors' understanding, tests, or independent database design.
+ChatGPT (OpenAI) assisted with code drafting, debugging, SQL queries, the generator, tests, and documentation. The implementation was checked against reproducible Python output and executed in Neon PostgreSQL, including CRUD and database-level constraint rejections. The student team remains responsible for reviewing the design and understanding its SQL and Python components.
