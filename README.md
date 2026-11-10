@@ -2,9 +2,9 @@
 
 **DSCI-D 532 | Fall 2026 | Sanchit Kumar and Viswambhara Chinmaye Palaparthi**
 
-HousingOps is a PostgreSQL-based demonstration of university housing operations. It supports date-aware bed availability, Resident Assistant (RA) coverage checks, ranked room-change recommendations, and historical housing occupancy analysis. The planned next stage is a Streamlit web interface.
+HousingOps is a PostgreSQL-based demonstration of university housing operations. It supports date-aware bed availability, Resident Assistant (RA) coverage checks, ranked room-change recommendations, and historical housing occupancy analysis. The first read-only Streamlit dashboard prototype is now on SanBranch.
 
-**Milestone 2 status:** Implemented database with 16 PostgreSQL tables, a reproducible Python data pipeline, SQL queries, CRUD demonstrations, and integrity tests. The web application is **not yet implemented**, which is permitted for this milestone. Final project target: December 13, 2026.
+**Milestone 2 status:** Implemented database with 16 PostgreSQL tables, a reproducible Python data pipeline, SQL queries, CRUD demonstrations, and integrity tests. A read-only Streamlit prototype was added after Milestone 2, but still requires local Neon/UI validation. Final project target: December 13, 2026.
 
 ## What is real and what is simulated?
 
@@ -23,8 +23,9 @@ HousingOps is a PostgreSQL-based demonstration of university housing operations.
 | [`docs/data_sources.md`](docs/data_sources.md) | Public-data provenance and historical totals |
 | [`docs/synthetic_data.md`](docs/synthetic_data.md) | Synthetic rules, source limitations, and test scenarios |
 | [`docs/evidence/`](docs/evidence/README.md) | Exported query results and Neon screenshots |
-| [`app/`](app/README.md) | Streamlit application plans for later milestones |
+| [`app/`](app/README.md) | Read-only Streamlit dashboard prototype and setup |
 | [`data/`](data/README.md) | Local source workbook and reproducibly generated CSV locations |
+| [`docs/project_roadmap.md`](docs/project_roadmap.md) | Post-Milestone 2 feature roadmap and current prototype status |
 
 ## Prerequisites
 
@@ -119,3 +120,13 @@ Milestone 2 implementation was led by **Sanchit Kumar**, following the team's ER
 ## Submission branch
 
 `SanBranch` contains the Milestone 2 implementation. The repository default branch, `main`, should be updated through review/merge before the instructor accesses the top-level repository URL. Until then, link directly to [SanBranch](https://github.com/HenryTudor8/HousingOps/tree/SanBranch).
+
+## Streamlit prototype on SanBranch
+
+With the PostgreSQL database already populated and your private `DATABASE_URL` in `.env`, run:
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run app/dashboard.py
+```
+
+The interface provides read-only vacancy snapshots, RA staffing gaps, fictional request matching and real historical occupied-space summaries. See the [app guide](app/README.md) and [development roadmap](docs/project_roadmap.md). **Its live Neon connection and rendered UI still need to be tested locally.**
