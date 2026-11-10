@@ -19,6 +19,10 @@
 
 **Validation state:** Files are committed. Live Streamlit/Neon execution and a manual screenshot walkthrough remain outstanding. The interface is not yet finalized for Milestone 3.
 
+## Workflow progress and responsibility split
+
+A read-only transfer preflight has been added in `app/workflow.py`, with query helpers and tests. The matching dashboard now offers a preview, **not a real transfer**. See [the workflow handoff](workflow_handoff.md). Per the original proposal, Sanchit leads Streamlit/administrator workflow UX; Viswambhara should have the opportunity to lead independent PostgreSQL transaction logic, query validation, and database consistency work, subject to agreeing on that task with her. Do not claim that planned work has been completed.
+
 ## Next development priorities
 
 1. **Run the app locally** against the populated Neon branch and compare its results to the Milestone 2 evidence.

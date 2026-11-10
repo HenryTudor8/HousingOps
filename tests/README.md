@@ -24,3 +24,13 @@ After loading the database, execute each statement in [`sql/06_integrity_tests.s
 | Final SELECT | Both invalid test assignment IDs absent |
 
 Neon screenshots are archived in [`docs/evidence/screenshots/`](../docs/evidence/README.md). Expected SQL errors are evidence that the constraints work.
+
+## Post-Milestone 2 workflow tests
+
+From the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests\test_workflow.py tests\test_workflow_repository.py -v
+```
+
+These are offline, read-only preview and parameterized SQL contract tests. They do **not** execute an approval transaction. PostgreSQL transaction/rollback/concurrency integration tests remain a separate task.

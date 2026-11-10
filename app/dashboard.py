@@ -10,7 +10,8 @@ if str(ROOT) not in sys.path:
 
 import pandas as pd
 import streamlit as st
-from app import repository
+from app import repository, workflow_repository
+from app.workflow import TransferPreflightError, build_transfer_preview
 from app.logic import DEMO_DATE, DEFAULT_STAY_END, as_currency, scenario_totals, sum_column
 
 st.set_page_config(page_title="HousingOps | Decision Support", page_icon="🏠", layout="wide")
@@ -113,6 +114,52 @@ def matching():
     rows = repository.matching_beds(selected, request["desired_move_date"], end)
     st.metric("Eligible candidate beds", len(rows))
     show_table(rows, "No candidate bed meets all constraints throughout this stay.")
+    if rows:
+        with st.expander("Preview a possible transfer (no database changes)"):
+            st.caption(
+                "This is a preflight review, not an approval. A separate transactional "
+                "database implementation is still needed before any room can be transferred."
+            )
+            by_bed = {str(row["bed_id"]): row for row in rows}
+            destination = st.selectbox(
+                "Candidate bed", options=list(by_bed),
+                format_func=lambda bed: (
+                    f"{bed} | {by_bed[bed]['building_name']} "
+                    f"room {by_bed[bed]['room_number']}"
+                ), key="transfer_preview_bed",
+            )
+            if st.button("Build read-only transfer preview", key="preview_transfer"):
+                current = workflow_repository.request_context_for_preview(selected)
+                if current is None:
+                    st.error("The request is no longer available. Refresh the request list.")
+                else:
+                    assignments = workflow_repository.resident_assignments_for_preview(selected, end)
+                    try:
+                        proposal = build_transfer_preview(
+                            request=current,
+                            candidate=by_bed[destination],
+                            eligible_beds=rows,
+                            intersecting_assignments=assignments,
+                            stay_end=end,
+                        )
+                    except TransferPreflightError as exc:
+                        st.warning(str(exc))
+                    else:
+                        st.success("Preflight checks passed for this read-only snapshot.")
+                        st.write(
+                            f"Resident {proposal.resident_id}: proposed move to "
+                            f"{proposal.destination_building}, room {proposal.destination_room} "
+                            f"({proposal.destination_bed_id})."
+                        )
+                        st.dataframe(
+                            pd.DataFrame(proposal.as_rows()),
+                            hide_index=True,
+                            use_container_width=True,
+                        )
+                        st.info(
+                            "No INSERT, UPDATE or DELETE occurred. A real approval must "
+                            "recheck availability under appropriate transaction locking."
+                        )
     st.warning("Read-only results: this page cannot reserve beds, approve moves or change resident records.")
 
 

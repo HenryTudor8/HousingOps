@@ -8,6 +8,7 @@ This is the first **read-only application increment** after Milestone 2. The ins
 - Bed availability: 0/7/14/30-day vacancy snapshots, which do **not** guarantee an entire stay.
 - RA coverage: active fictional RA assignments and floors lacking coverage.
 - Room-change matching: preference-ranked candidate beds filtered by room type, ceiling, eligibility and *full proposed stay*. No reservation is made.
+- Transfer preview: a **read-only** preflight review of a chosen candidate bed and a proposed assignment change. It does not authorize or execute a transfer.
 - Historical occupancy: 2022–24 public occupied-space totals and property drilldown, distinct from synthetic operations.
 
 The prototype reads the existing 16-table Neon/PostgreSQL database. It does **not** add tables, change Milestone 2 code, or perform CRUD.
